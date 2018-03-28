@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+    image: wc_web
+    command: ["gunicorn", "app:app", "-b", "0.0.0.0:5000", "--reload", "--timeout",  "100000"]
+    volumes:
+      - .:/home/web/
+    ports:
+      - "5000:5000"
+    stdin_open: true
+    tty: true
