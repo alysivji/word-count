@@ -1,24 +1,27 @@
-<!doctype html>
+{% extends 'bootstrap/base.html' %}
 
-<html>
-    <head>
-        <title>WorkdCount</title>
-    </head>
-    <body>
-        <div>
-            Word Count:
-            <a href="{{ url_for('index') }}">Home</a>
-          </div>
-        <hr>
+{% block title %}
+    Word Counter
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Word Counter</a>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul>
             {% for message in messages %}
-            <li>{{ message }}</li>
+            <div class="alert alert-info" role="alert">{{ message }}</div>
             {% endfor %}
-        </ul>
         {% endif %}
         {% endwith %}
-        {% block content %}{% endblock %}
-    </body>
-</html>
+
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}

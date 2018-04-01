@@ -58,7 +58,7 @@ def index():
                 lines = _extract_lines_from_file(full_path)
                 return word_count(lines=lines)
             else:
-                flash('Error with file. Requires extension txt')
+                flash('File requires txt extensions')
 
         # user enters text
         if form.entered_text.data is not '':
@@ -81,4 +81,4 @@ def word_count(lines):
         word_counter += Counter(words)
 
     from flask import jsonify
-    return jsonify(word_counter)
+    return jsonify(word_counter.most_common(25))
