@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
 from wtforms import FileField, TextAreaField, SubmitField
-from wtforms import validators
 
 
 class WordCountForm(FlaskForm):

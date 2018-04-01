@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+  <h4>Most Frequently Used Words</h4>
+
+  <table border=0 class="underlined">
+    <tr>
+      <td>
+        <ol id="top-words">
+          {% for word, count in top_words %}
+            <li><p>{{ word }}</p></li>
+          {% endfor %}
+        </ol>
+      </td>
+    </tr>
+  </table>
+{% endblock %}

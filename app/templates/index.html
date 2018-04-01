@@ -1,16 +1,22 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <form action="" method="post" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.entered_text.label }}<br>
-            {{ form.entered_text(size=200) }}
-        </p>
-        <p>
-            {{ form.text_file.label }}<br>
-            {{ form.text_file() }}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+  <form action="" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <div class="row">
+      <div class="col-sm-1">{{ form.entered_text.label }}</div>
+      <div class="col-sm-5">{{ form.entered_text(class="form-control", rows="5") }}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-1">{{ form.text_file.label }}</div>
+      <div class="col-sm-5">{{ form.text_file() }}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-5"></div>
+      <div class="col-sm-1">{{ form.submit(class="btn-success") }}</div>
+    </div>
+  </form>
 {% endblock %}

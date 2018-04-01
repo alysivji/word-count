@@ -80,5 +80,7 @@ def word_count(lines):
         words = [word.lower() for word in line.split()]
         word_counter += Counter(words)
 
-    from flask import jsonify
-    return jsonify(word_counter.most_common(25))
+    return render_template(
+        'top_words.html',
+        top_words=word_counter.most_common(25),
+    )
