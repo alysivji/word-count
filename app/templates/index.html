@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-Index
+    <h1>Word Count</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.entered_text.label }}<br>
+            {{ form.entered_text(size=200) }}
+        </p>
+        <p>
+            {{ form.text_file.label }}<br>
+            {{ form.text_file() }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
 {% endblock %}

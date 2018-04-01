@@ -8,6 +8,7 @@ services:
     command: ["gunicorn", "app:app", "-b", "0.0.0.0:5000", "--reload", "--timeout",  "100000"]
     volumes:
       - .:/home/web/
+      - ./.pdbrc.py:/home/sivdev_user/.pdbrc.py
     ports:
       - "5000:5000"
     stdin_open: true
