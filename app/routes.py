@@ -75,7 +75,14 @@ def _process_word(word: str):
     # conjugated verbs
     elif word.endswith('ing'):
         word = word[:-3]
+    elif word.endswith('ied'):
+        if word[-4] not in VOWELS:
+            word = word[:-3] + 'y'
     elif word.endswith('ed'):
+        word = word[:-2]
+
+    # basic adverbs
+    elif word.endswith('ly'):
         word = word[:-2]
 
     return word
@@ -123,15 +130,14 @@ def word_count(lines, exclude_stopwords):
     """
     word_counter = Counter()
     for line in lines:
-        for word in line.split():
-            if exclude_stopwords:
-                words = [_process_word(word)
-                         for word in line.split()
-                         if word not in STOPWORDS]
-            else:
-                words = [_process_word(word)
-                         for word in line.split()]
-            word_counter += Counter(words)
+        if exclude_stopwords:
+            words = [_process_word(word)
+                     for word in line.split()
+                     if word not in STOPWORDS]
+        else:
+            words = [_process_word(word)
+                     for word in line.split()]
+        word_counter += Counter(words)
 
     return render_template(
         'top_words.html',

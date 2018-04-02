@@ -33,6 +33,10 @@ def test_conjugated_verbs():
     assert _process_word('talking') == _process_word('talk')
     assert _process_word('talked') == _process_word('talk')
 
+    assert _process_word('studied') == 'study'
+    assert _process_word('marry') == 'marry'
+    assert _process_word('tried') == 'try'
+
 
 def test_random_words():
     assert _process_word('is') == 'is'

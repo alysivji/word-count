@@ -8,7 +8,7 @@
       <td>
         <ol id="top-words">
           {% for word, count in top_words %}
-            <li><p>{{ word }}</p></li>
+            <li><p title="{{ count }}">{{ word }}</p></li>
           {% endfor %}
         </ol>
       </td>
