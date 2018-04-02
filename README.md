@@ -20,6 +20,14 @@ Can either upload a file (higher precedence) or enter text. Mouseover word in re
 
 Styled using Bootstrap.
 
+## Algorithm Overview
+
+I briefly glanced at the [Porter Stemming Algorithm](https://tartarus.org/martin/PorterStemmer/) before starting this project. The high level look confirmed my intuition that the order in which rules are applied is important.
+
+While it seems that English has more exceptions than rules, we can still create a flowchart to convert a singular noun to its plural form or take a regular verb and conjugate it. This will work most of the time.
+
+For this solution, I reversed the flow of data and made the base case into a condition that is checked at the end.
+
 ## Solution Details
 
 * [`routes.py`](https://github.com/alysivji/word-count/blob/master/app/routes.py) is the main module of this program
