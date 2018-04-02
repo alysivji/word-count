@@ -4,6 +4,7 @@ import os
 import string
 
 from flask import flash, render_template, request
+from nltk.corpus import stopwords
 from werkzeug.utils import secure_filename
 
 from app import app
@@ -21,6 +22,7 @@ ALLOWED_EXTENSIONS = set(['txt'])
 table = str.maketrans({key: None for key in string.punctuation})
 
 VOWELS = ['a', 'e', 'i', 'o', 'u']
+STOPWORDS = stopwords.words('english')
 
 
 ##################
@@ -84,6 +86,8 @@ def index():
     form = WordCountForm()
 
     if form.validate_on_submit():
+        exclude_stopwords = form.exclude_stopwords.data
+
         # user uploads file
         if 'text_file' in request.files:
             file = request.files['text_file']
@@ -93,7 +97,8 @@ def index():
                 full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(full_path)
                 lines = _extract_lines_from_file(full_path)
-                return word_count(lines=lines)
+                return word_count(lines=lines,
+                                  exclude_stopwords=exclude_stopwords)
             else:
                 flash('File requires txt extensions')
 
@@ -102,19 +107,30 @@ def index():
             lines = []
             for line in form.entered_text.data.splitlines():
                 lines.append(line.strip().translate(table))
-            return word_count(lines=lines)
+            return word_count(lines=lines,
+                              exclude_stopwords=exclude_stopwords)
 
     return render_template('index.html', form=form)
 
 
-def word_count(lines):
+def word_count(lines, exclude_stopwords):
     """
     Loop thru lines, count words, and output table
     """
+
+    # import pdb; pdb.set_trace()
+
     word_counter = Counter()
     for line in lines:
-        words = [_process_word(word) for word in line.split()]
-        word_counter += Counter(words)
+        for word in line.split():
+            if exclude_stopwords:
+                words = [_process_word(word)
+                         for word in line.split()
+                         if word not in STOPWORDS]
+            else:
+                words = [_process_word(word)
+                         for word in line.split()]
+            word_counter += Counter(words)
 
     return render_template(
         'top_words.html',

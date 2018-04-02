@@ -5,13 +5,18 @@
     {{ form.hidden_tag() }}
 
     <div class="row">
+      <div class="col-sm-1">{{ form.text_file.label }}</div>
+      <div class="col-sm-5">{{ form.text_file() }}</div>
+    </div>
+
+    <div class="row">
       <div class="col-sm-1">{{ form.entered_text.label }}</div>
       <div class="col-sm-5">{{ form.entered_text(class="form-control", rows="5") }}</div>
     </div>
 
     <div class="row">
-      <div class="col-sm-1">{{ form.text_file.label }}</div>
-      <div class="col-sm-5">{{ form.text_file() }}</div>
+      <div class="col-sm-1">{{ form.exclude_stopwords.label }}</div>
+      <div class="col-sm-5">{{ form.exclude_stopwords() }}</div>
     </div>
 
     <div class="row">
