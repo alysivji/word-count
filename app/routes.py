@@ -104,7 +104,7 @@ def index():
                 return word_count(lines=lines,
                                   exclude_stopwords=exclude_stopwords)
             else:
-                flash('File requires txt extensions')
+                flash('Please upload file with txt extension')
 
         # user enters text
         if form.entered_text.data is not '':
