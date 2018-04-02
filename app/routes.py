@@ -4,7 +4,6 @@ import os
 import string
 
 from flask import flash, render_template, request
-from nltk.corpus import stopwords
 from werkzeug.utils import secure_filename
 
 from app import app
@@ -22,7 +21,12 @@ ALLOWED_EXTENSIONS = set(['txt'])
 table = str.maketrans({key: None for key in string.punctuation})
 
 VOWELS = ['a', 'e', 'i', 'o', 'u']
-STOPWORDS = stopwords.words('english')
+
+# stopwords (copied over from nltk's corpus)
+with open('app/stopwords.txt', 'r') as f:
+    STOPWORDS = []
+    for line in f.readlines():
+        STOPWORDS.append(line.strip())
 
 
 ##################
@@ -117,9 +121,6 @@ def word_count(lines, exclude_stopwords):
     """
     Loop thru lines, count words, and output table
     """
-
-    # import pdb; pdb.set_trace()
-
     word_counter = Counter()
     for line in lines:
         for word in line.split():

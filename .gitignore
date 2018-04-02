@@ -106,6 +106,3 @@ ENV/
 .DS_Store
 .vscode
 .pdbrc.py
-
-# App specific
-uploaded_files/
