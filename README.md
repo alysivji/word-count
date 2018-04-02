@@ -14,9 +14,9 @@ App is live at `http://localhost:5000`
 
 ## Solution Overview
 
-Implemented a single serving [Flask](http://flask.pocoo.org/) that takes in a text file or user input and calculates the 25 most frequently used words. Users have the option of excluding stopwords (pulled from [NLTK](http://www.nltk.org/book/)) from being counted.
+Implemented a single serving [Flask](http://flask.pocoo.org/) site that takes in a text file and calculates the 25 most frequently used words. Users have the option of excluding stopwords (pulled from [NLTK](http://www.nltk.org/book/)) from the calculation.
 
-Can either upload a file (higher precedence) or enter text. Mouseover word in table to get occurence count.
+Can either upload a file (higher precedence) or enter text. Mouseover word in resulting table to get occurence count.
 
 Styled using Bootstrap.
 
