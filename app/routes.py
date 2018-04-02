@@ -20,6 +20,8 @@ ALLOWED_EXTENSIONS = set(['txt'])
 # map punctuation to None
 table = str.maketrans({key: None for key in string.punctuation})
 
+VOWELS = ['a', 'e', 'i', 'o', 'u']
+
 
 ##################
 # Helper Functions
@@ -36,6 +38,41 @@ def _extract_lines_from_file(file):
         for line in f.readlines():
             lines.append(line.strip().translate(table))
     return lines
+
+
+def _process_word(word: str):
+    """
+    Get word stem and lower case word
+    """
+    word = word.lower()
+
+    # words that aren't plural but end in s
+    if word.endswith('is'):
+        pass
+
+    # plural nouns
+    elif (word.endswith('ches') or word.endswith('xes') or
+          word.endswith('ses') or word.endswith('shes') or
+          word.endswith('zes')):
+        word = word[:-2]
+    elif word.endswith('oes'):
+        word = word[:-2]
+    elif word.endswith('ves'):
+        word = word[:-3] + 'f'
+    elif word.endswith('ies'):
+        if word[-4] not in VOWELS:
+            word = word[:-3] + 'y'
+    # when in doubt, remove the s to make singular
+    elif word.endswith('s') and not word.endswith('ss'):
+        word = word[:-1]
+
+    # conjugated verbs
+    elif word.endswith('ing'):
+        word = word[:-3]
+    elif word.endswith('ed'):
+        word = word[:-2]
+
+    return word
 
 
 #############
@@ -72,12 +109,11 @@ def index():
 
 def word_count(lines):
     """
-    Loop thru lines and count words
+    Loop thru lines, count words, and output table
     """
-    # import pdb; pdb.set_trace()
     word_counter = Counter()
     for line in lines:
-        words = [word.lower() for word in line.split()]
+        words = [_process_word(word) for word in line.split()]
         word_counter += Counter(words)
 
     return render_template(
